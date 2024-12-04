@@ -21,3 +21,4 @@
 /Users/hamza/Desktop/Ocr Novembre 2023/Decouverte C#/AspNetWebApi/Chap1/MinimalApis/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.MinimalApis.props
 /Users/hamza/Desktop/Ocr Novembre 2023/Decouverte C#/AspNetWebApi/Chap1/MinimalApis/obj/Debug/net8.0/staticwebassets.pack.json
 /Users/hamza/Desktop/Ocr Novembre 2023/Decouverte C#/AspNetWebApi/Chap1/MinimalApis/obj/Debug/net8.0/scopedcss/bundle/MinimalApis.styles.css
+/Users/hamza/Desktop/Ocr Novembre 2023/Decouverte C#/AspNetWebApi/Chap1/MinimalApis/obj/Debug/net8.0/MinimalApis.sourcelink.json
