@@ -19,7 +19,7 @@ app.MapPut("/put", () => "Hello PUT !");
 app.MapPatch("/patch", () => "Hello PATCH !");
 // app.MapMethods("/methods", new[] {"GET", "POST"}, ()=> "Hello vous !");
 
-app.MapGet("/articles", () =>  list);
+
 
 app.MapGet("/article/{id:int}", (int id) =>
 {
