@@ -1,4 +1,5 @@
-﻿using MinimalApis;
+﻿using Microsoft.AspNetCore.Mvc;
+using MinimalApis;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -19,7 +20,7 @@ app.MapPut("/put", () => "Hello PUT !");
 app.MapPatch("/patch", () => "Hello PATCH !");
 // app.MapMethods("/methods", new[] {"GET", "POST"}, ()=> "Hello vous !");
 
-
+app.MapGet("/articles", () =>  list);
 
 app.MapGet("/article/{id:int}", (int id) =>
 {
@@ -31,5 +32,11 @@ app.MapGet("/article/{id:int}", (int id) =>
 
     return Results.NotFound();;
 });
+
+app.MapGet("/personne/{nom}", (
+    [FromRoute(Name = "nom")] string nomPersonne,
+    string? prenom) => Results.Ok($"{nomPersonne} {prenom}"));
+
+
 
 app.Run();
