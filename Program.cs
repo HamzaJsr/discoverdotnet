@@ -39,4 +39,3 @@ app.MapGet("/personne/{nom}", (
 
 
 
-app.Run();
