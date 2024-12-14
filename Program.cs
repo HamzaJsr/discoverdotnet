@@ -35,8 +35,8 @@ app.MapGet("/article/{id:int}", (int id) =>
 
 app.MapGet("/personne/{nom}", (
     [FromRoute(Name = "nom")] string nomPersonne,
-    string? prenom) => Results.Ok($"{nomPersonne} {prenom}"));
+    [FromQuery] string? prenom) => Results.Ok($"{nomPersonne} {prenom}"));
 
-
+app.MapGet("/personne/identié", (Personne p)=> Results.Ok(p));
 
 app.Run();
