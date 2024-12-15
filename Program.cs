@@ -37,6 +37,28 @@ app.MapGet("/personne/{nom}", (
     [FromRoute(Name = "nom")] string nomPersonne,
     [FromQuery] string? prenom) => Results.Ok($"{nomPersonne} {prenom}"));
 
-app.MapGet("/personne/identié", (Personne p)=> Results.Ok(p));
+// app.MapGet("/personne/identite", (Personne p)=> Results.Ok(p));
+
+app.Use(async (context, next) =>
+{
+    using var reader = new StreamReader(context.Request.Body);
+    var body = await reader.ReadToEndAsync();
+    Console.WriteLine($"Corps brut reçu : {body}");
+    context.Request.Body = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(body));
+    await next();
+});
+
+
+app.MapPost("/personne/identite", (Personne? p) =>
+{
+    if (p == null)
+    {
+        Console.WriteLine("Erreur : Désérialisation échouée. Le corps JSON est peut-être mal formé.");
+        return Results.BadRequest("Données non valides ou mal formées.");
+    }
+    Console.WriteLine($"Nom : {p.Nom}, Prénom : {p.Prenom}");
+    return Results.Ok(p);
+});
+
 
 app.Run();
