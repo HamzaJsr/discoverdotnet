@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 
 namespace MinimalApis
@@ -27,7 +26,7 @@ namespace MinimalApis
         //         return false;
         //     }
         // }
-
+public
         public static async ValueTask<Personne> BindAsync(
             HttpContext context, ParameterInfo parameterInfo)
             {
