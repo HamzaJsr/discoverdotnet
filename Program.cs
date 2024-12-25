@@ -3,12 +3,6 @@ using MinimalApis;
 
 var builder = WebApplication.CreateBuilder();
 
-var list = new List<Article>
-{
-    new Article(1, "Marteau"),
-    new Article(2, "Scie")
-};
-
 
 var app = builder.Build();
 
@@ -20,18 +14,22 @@ app.MapPut("/put", () => "Hello PUT !");
 app.MapPatch("/patch", () => "Hello PATCH !");
 // app.MapMethods("/methods", new[] {"GET", "POST"}, ()=> "Hello vous !");
 
-app.MapGet("/articles", () =>  list);
+app.MapGet("/articles", () =>  new ArticleServices().GetAll());
 
 app.MapGet("/article/{id:int}", (int id) =>
 {
-    var article = list.Find(a => a.Id == id);
+    var article = new ArticleServices().GetAll().Find(a => a.Id == id);
     if (article is not null){
     return Results.Ok(article);
     }
-
-
     return Results.NotFound();;
 });
+
+app.MapPost("/addArticle/", (Article article)=> 
+{
+    Article result = new ArticleServices().Add(article.Title);
+    return Results.Ok(result);
+}); 
 
 app.MapGet("/personne/{nom}", (
     [FromRoute(Name = "nom")] string nomPersonne,
