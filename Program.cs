@@ -3,6 +3,7 @@ using MinimalApis;
 
 var builder = WebApplication.CreateBuilder();
 
+builder.Services.AddSingleton<ArticleServices>();
 
 var app = builder.Build();
 
@@ -14,20 +15,20 @@ app.MapPut("/put", () => "Hello PUT !");
 app.MapPatch("/patch", () => "Hello PATCH !");
 // app.MapMethods("/methods", new[] {"GET", "POST"}, ()=> "Hello vous !");
 
-app.MapGet("/articles", () =>  new ArticleServices().GetAll());
+app.MapGet("/articles", ([FromServices] ArticleServices service) =>  service.GetAll());
 
-app.MapGet("/article/{id:int}", (int id) =>
+app.MapGet("/article/{id:int}", (int id, [FromServices] ArticleServices service) =>
 {
-    var article = new ArticleServices().GetAll().Find(a => a.Id == id);
+    var article = service.GetAll().Find(a => a.Id == id);
     if (article is not null){
     return Results.Ok(article);
     }
-    return Results.NotFound();;
+    return Results.NotFound("Not found");
 });
 
-app.MapPost("/addArticle/", (Article article)=> 
+app.MapPost("/addArticle/", (Article article, [FromServices] ArticleServices service)=> 
 {
-    Article result = new ArticleServices().Add(article.Title);
+    Article result = service.Add(article.Title);
     return Results.Ok(result);
 }); 
 
